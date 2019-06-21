@@ -3,8 +3,10 @@ package com.brayan.carservice;
 import com.brayan.carservice.models.Car;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,5 +29,12 @@ public class CarServiceApplication {
 				new Car("Isuzu", 2011, 3),
 				new Car("Mazda", 2010, 4)
 		);
+	}
+
+	@Bean
+	@LoadBalanced
+	public RestTemplate provideRestTemplate()
+	{
+		return  new RestTemplate();
 	}
 }
